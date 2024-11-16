@@ -9,11 +9,6 @@ import { HeadingComponent } from './shared/ui/heading.component';
   template: `
     <router-outlet>
       <app-heading title="Hello 1"></app-heading>
-
-      <app-heading title="Hello 3"></app-heading>
-      <app-heading title="Hello 4"></app-heading>
-      <h2>dsadsadsa</h2>
-      <p>dsadssda</p>
     </router-outlet>
   `,
 })
