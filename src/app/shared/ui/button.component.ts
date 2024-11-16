@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-button',
   standalone: true,
   imports: [],
   template: `
-    <p>
-      button works!
-    </p>
+    <button class="text-4xl py-4 bg-blue-200 w-full mx-auto rounded-lg">
+      {{ text() }}
+    </button>
   `,
-  styles: ``
+  styles: ``,
 })
 export class ButtonComponent {
-
+  text = input.required<string>();
 }
