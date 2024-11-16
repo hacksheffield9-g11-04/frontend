@@ -11,7 +11,7 @@ import { ButtonComponent } from '../shared/ui/button.component';
       <app-heading [title]="title"></app-heading>
       <div class="grid grid-cols-1 gap-4">
         @for (section of sections; track $index) {
-        <app-button [text]="section.name" route="fitness" />
+        <app-button [text]="section.name" [route]="section.route" />
         }
       </div>
     </div>
@@ -20,5 +20,9 @@ import { ButtonComponent } from '../shared/ui/button.component';
 })
 export class HomePage {
   title = 'What do you want to improve?';
-  sections = [{ name: 'Fitness' }, { name: 'Knowledge' }, { name: 'Mind' }];
+  sections = [
+    { name: 'Fitness', route: 'fitness' },
+    { name: 'Knowledge', route: 'fitness' },
+    { name: 'Mind', route: 'fitness' },
+  ];
 }
