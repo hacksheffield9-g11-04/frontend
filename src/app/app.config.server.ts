@@ -2,7 +2,7 @@ import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
 import { provideServerRendering } from '@angular/platform-server';
 import { appConfig } from './app.config';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './shared/interceptors/auth.interceptor';
+import { authInterceptor } from './shared/interceptor/auth.interceptor';
 
 const serverConfig: ApplicationConfig = {
   providers: [
