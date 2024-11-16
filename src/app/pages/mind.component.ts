@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { HeadingComponent } from '../shared/ui/heading.component';
 import { ButtonComponent } from '../shared/ui/button.component';
-
 @Component({
   selector: 'app-mind',
   standalone: true,
