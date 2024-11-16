@@ -7,13 +7,13 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule],
   template: `
     <button
-      routerLink="fitness"
+      [routerLink]="route()"
       class="text-4xl py-4 bg-blue-200 w-full mx-auto rounded-lg"
     >
       {{ text() }}
     </button>
   `,
-  styles: ``,
+  styles: ``, 
 })
 export class ButtonComponent {
   route = input<string>();

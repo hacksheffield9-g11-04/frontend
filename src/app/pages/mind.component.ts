@@ -1,9 +1,9 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeadingComponent } from '../shared/ui/heading.component';
 import { ButtonComponent } from '../shared/ui/button.component';
 
 @Component({
-  selector: 'app-fitness',
+  selector: 'app-mind',
   standalone: true,
   imports: [HeadingComponent, ButtonComponent],
   template: `<div class="px-6 mx-auto max-w-[1200px]">
@@ -14,20 +14,14 @@ import { ButtonComponent } from '../shared/ui/button.component';
       }
     </div>
   </div> `,
-  styles: ``,
+  styles: ``
 })
-export class FitnessPage {
-  title = 'Great! Now select what do you want to do in Fitness?';
+
+export class MindPage {
+  title = 'Great! Now select what do you want to do in Mind?';
   subSections = [
-    { name: 'Running' },
-    { name: 'Weighlifting' },
-    { name: 'Crossfit' },
+    { name: 'Mind-Body Connection' },
+    { name: 'Mental Health' },
+    { name: 'Focus and Concentration' },
   ];
-  // Send info to api
-  // req = {
-  //   section: 'fitness',
-  //   subSections: 'running',
-  //   difficulty: 'hard',
-  //   time: 10,
-  // };
 }

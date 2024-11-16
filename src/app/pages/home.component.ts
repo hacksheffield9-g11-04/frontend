@@ -22,7 +22,7 @@ export class HomePage {
   title = 'What do you want to improve?';
   sections = [
     { name: 'Fitness', route: 'fitness' },
-    { name: 'Knowledge', route: 'fitness' },
-    { name: 'Mind', route: 'fitness' },
+    { name: 'Knowledge', route: 'knowledge' },
+    { name: 'Mind', route: 'mind' },                
   ];
 }
