@@ -16,6 +16,6 @@ import { RouterModule } from '@angular/router';
   styles: ``,
 })
 export class ButtonComponent {
-  route = input.required<string>();
+  route = input<string>();
   text = input.required<string>();
 }
