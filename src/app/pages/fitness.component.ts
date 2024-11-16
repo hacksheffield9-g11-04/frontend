@@ -76,11 +76,4 @@ export class FitnessPage {
       },
     });
   }
-  // Send info to api
-  // req = {
-  //   section: 'fitness',
-  //   subSections: 'running',
-  //   difficulty: 'hard',
-  //   time: 10,
-  // };
 }
