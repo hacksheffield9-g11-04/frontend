@@ -13,10 +13,6 @@ export const routes: Routes = [
     component: FitnessPage,
   },
   {
-    path: '',
-    component: HomePage,
-  },
-  {
     path: 'knowledge',
     component: KnowledgePage,
   },
@@ -40,4 +36,6 @@ export const routes: Routes = [
     path: 'list',
     component: ActivityListPage,
   },
+
+  { path: '**', component: HomePage },
 ];
