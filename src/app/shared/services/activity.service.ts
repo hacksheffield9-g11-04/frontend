@@ -14,6 +14,8 @@ import {
 })
 export class ActivityService {
   private baseUrl = 'http://localhost:3000/api';
+  private updateActivityStatusUri =
+    'http://localhost:3000/api/activities/@activityId';
   constructor(private http: HttpClient) {}
 
   generateActivities(request: ActivityRequest): Observable<ActivityResponse> {
@@ -41,13 +43,15 @@ export class ActivityService {
     });
   }
 
-  public updateActivity(activityId: string, isCompletedToday: boolean){
-    let Uri: string = this.updateActivityStatusUri.replace("@activityId", activityId)
+  public updateActivity(activityId: string, isCompletedToday: boolean) {
+    let Uri: string = this.updateActivityStatusUri.replace(
+      '@activityId',
+      activityId
+    );
     const body = {
-      complete: isCompletedToday
-    }
-    const params = new HttpParams()
-      .set('complete', isCompletedToday)
+      complete: isCompletedToday,
+    };
+    const params = new HttpParams().set('complete', isCompletedToday);
     return lastValueFrom(this.http.patch(Uri, body));
   }
 }
