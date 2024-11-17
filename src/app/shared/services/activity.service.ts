@@ -1,7 +1,7 @@
 // activity.service.ts
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import {
   ActivityDetailResponse,
   ActivityRequest,
@@ -39,5 +39,15 @@ export class ActivityService {
     return this.http.get<ActivityDetailResponse>(`${this.baseUrl}/activities`, {
       params,
     });
+  }
+
+  public updateActivity(activityId: string, isCompletedToday: boolean){
+    let Uri: string = this.updateActivityStatusUri.replace("@activityId", activityId)
+    const body = {
+      complete: isCompletedToday
+    }
+    const params = new HttpParams()
+      .set('complete', isCompletedToday)
+    return lastValueFrom(this.http.patch(Uri, body));
   }
 }
