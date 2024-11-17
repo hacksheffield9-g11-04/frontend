@@ -71,7 +71,7 @@ export class GridPage {
     this.activityService.getActivityTree().subscribe({
       next: (response) => {
         this.activityTree.set(response);
-        console.log('Activity tree:', this.activityTree());
+        // console.log('Activity tree:', this.activityTree());
       },
       error: (error) => {
         console.error('Error fetching activity tree:', error);
