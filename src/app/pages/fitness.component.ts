@@ -7,6 +7,7 @@ import {
   ActivityResponse,
 } from '../shared/interfaces/activity.interface';
 import { DataModelManagerService } from '../dataModelManagerService';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-fitness',
   standalone: true,
@@ -41,7 +42,9 @@ import { DataModelManagerService } from '../dataModelManagerService';
 })
 export class FitnessPage {
   private activityService = inject(ActivityService);
-  private dataModelMgrSvc = inject(DataModelManagerService)
+  private dataModelMgrSvc = inject(DataModelManagerService);
+
+  router = inject(Router);
   title = 'Great! Now select what do you want to do in Fitness?';
   subSections = [
     { name: 'Running' },
@@ -66,8 +69,14 @@ export class FitnessPage {
     this.activityService.generateActivities(request).subscribe({
       next: (response) => {
         this.activities.set(response);
-        if(this.dataModelMgrSvc.registerDataModel("activites", response, true))
+        this.dataModelMgrSvc.registerDataModel(
+          'activities',
+          response.activities,
+          true
+        );
         this.isLoading.set(false);
+        this.router.navigate(['/cards']);
+        console.log('Activities generated:', response);
       },
       error: (error) => {
         this.error.set('Failed to generate activities. Please try again.');

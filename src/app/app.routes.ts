@@ -5,6 +5,7 @@ import { KnowledgePage } from './pages/knowledge.component';
 import { MindPage } from './pages/mind.component';
 import { ActivityListPage } from './pages/activity-list.component';
 import { GridPage } from './pages/grid.component';
+import { CardsPage } from './pages/cards.component';
 
 export const routes: Routes = [
   {
@@ -29,6 +30,10 @@ export const routes: Routes = [
   },
   {
     path: 'activities-today',
-    component: ActivityListPage
+    component: ActivityListPage,
+  },
+  {
+    path: 'cards',
+    component: CardsPage,
   },
 ];

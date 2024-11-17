@@ -32,4 +32,12 @@ export class ActivityService {
       `${this.baseUrl}/activities/tree`
     );
   }
+
+  public getActivities() {
+    const params = new HttpParams().set('groupByTag', false);
+
+    return this.http.get<ActivityDetailResponse>(`${this.baseUrl}/activities`, {
+      params,
+    });
+  }
 }
