@@ -13,7 +13,7 @@ import {
   providedIn: 'root',
 })
 export class ActivityService {
-  private baseUrl = 'http://localhost:3000/api';
+  private baseUrl = 'https://backend-n2pq.onrender.com/api';
   private updateActivityStatusUri =
     'http://localhost:3000/api/activities/@activityId';
   constructor(private http: HttpClient) {}
