@@ -37,5 +37,7 @@ export const routes: Routes = [
     component: ActivityListPage,
   },
 
+  { path: '', component: HomePage },
+
   { path: '**', component: HomePage },
 ];
