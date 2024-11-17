@@ -6,7 +6,7 @@ import {
   ActivityRequest,
   ActivityResponse,
 } from '../shared/interfaces/activity.interface';
-
+import { DataModelManagerService } from '../dataModelManagerService';
 @Component({
   selector: 'app-fitness',
   standalone: true,
@@ -41,6 +41,7 @@ import {
 })
 export class FitnessPage {
   private activityService = inject(ActivityService);
+  private dataModelMgrSvc = inject(DataModelManagerService)
   title = 'Great! Now select what do you want to do in Fitness?';
   subSections = [
     { name: 'Running' },
@@ -65,6 +66,7 @@ export class FitnessPage {
     this.activityService.generateActivities(request).subscribe({
       next: (response) => {
         this.activities.set(response);
+        if(this.dataModelMgrSvc.registerDataModel("activites", response, true))
         this.isLoading.set(false);
       },
       error: (error) => {
@@ -74,11 +76,4 @@ export class FitnessPage {
       },
     });
   }
-  // Send info to api
-  // req = {
-  //   section: 'fitness',
-  //   subSections: 'running',
-  //   difficulty: 'hard',
-  //   time: 10,
-  // };
 }

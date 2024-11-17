@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
+  ActivityDetailResponse,
   ActivityRequest,
   ActivityResponse,
   ActivityTreeResponse,
@@ -13,7 +14,6 @@ import {
 })
 export class ActivityService {
   private baseUrl = 'http://localhost:3000/api';
-
   constructor(private http: HttpClient) {}
 
   generateActivities(request: ActivityRequest): Observable<ActivityResponse> {
