@@ -1,7 +1,7 @@
 // activity.service.ts
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import {
   ActivityDetailResponse,
   ActivityRequest,
@@ -12,8 +12,10 @@ import {
   providedIn: 'root',
 })
 export class ActivityService {
-  private baseUrl = 'https://6105-143-167-204-71.ngrok-free.app/api/generate';
-  private getActivitiesUri = 'https://6105-143-167-204-71.ngrok-free.app/api/activities'
+  private baseUrl = 'https://backend-n2pq.onrender.com/api';
+  private generateActivitiesUri = `${this.baseUrl}/generate`;
+  private getActivitiesUri = `${this.baseUrl}/activities`;
+  private updateActivityStatusUri = `${this.baseUrl}/activities/@activityId/toggle-complete`
   constructor(private http: HttpClient) {}
 
   generateActivities(request: ActivityRequest): Observable<ActivityResponse> {
@@ -22,7 +24,7 @@ export class ActivityService {
       .set('category', request.category)
       .set('durationPerDay', request.durationPerDay);
 
-    return this.http.get<ActivityResponse>(this.baseUrl, { params });
+    return this.http.get<ActivityResponse>(this.generateActivitiesUri, { params });
   }
 
   public getActivities(){
@@ -30,5 +32,15 @@ export class ActivityService {
       .set('groupByTag', false)
 
     return this.http.get<ActivityDetailResponse>(this.getActivitiesUri, { params }) 
+  }
+
+  public updateActivity(activityId: string, isCompletedToday: boolean){
+    let Uri: string = this.updateActivityStatusUri.replace("@activityId", activityId)
+    const body = {
+      complete: isCompletedToday
+    }
+    const params = new HttpParams()
+      .set('complete', isCompletedToday)
+    return lastValueFrom(this.http.patch(Uri, body));
   }
 }

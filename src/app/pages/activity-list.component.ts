@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivityService } from '../shared/services/activity.service';
+import { ActivityDetail } from '../shared/interfaces/activity.interface';
 @Component({
   selector: 'app-activity-list',
   standalone: true,
@@ -10,7 +11,7 @@ import { ActivityService } from '../shared/services/activity.service';
     <ul class="space-y-2">
       @for(activity of activities; track $index) {
         <li class="p-2 bg-gray-50 rounded flex items-center justify-between">
-          <span>{{ activity }}</span>
+          <span>{{ activity.name }}</span>
           <input
             type="checkbox"
             (change)="toggleChecked(activity, $event)"
@@ -32,23 +33,24 @@ import { ActivityService } from '../shared/services/activity.service';
   styles: ``
 })
 export class ActivityListPage {
-  activities: Array<string> = []  
+  activities: Array<ActivityDetail> = []  
   private activityService = inject(ActivityService);
   constructor(){
     this.getActivities();
   }
 
-  checkedArray: string[] = [];
+  checkedArray: ActivityDetail[] = [];
 
   async getActivities(){
     let _ = await this.activityService.getActivities().subscribe({
       next: (response) => {
-        this.activities = response.data.map(x => x.name);
+        this.activities = response.data;
+        this.checkedArray = this.activities.filter(x => x.isCompletedToday)
       }
     })
   }
 
-  toggleChecked(activity: string, event: Event) {
+  toggleChecked(activity: ActivityDetail, event: Event) {
     const isChecked = (event.target as HTMLInputElement).checked;
     if (isChecked) {
       this.checkedArray.push(activity);
@@ -57,7 +59,15 @@ export class ActivityListPage {
     }
   }
 
-  submitChecked() {
+  async submitChecked() {
+    try{
+      const updatePromises = this.activities.filter(x => !x.isCompletedToday).map(activity => {
+        this.activityService.updateActivity(activity._id, this.checkedArray.includes(activity) ? true : false)
+      })
 
+      const responses = await Promise.all(updatePromises)
+    } catch(error){
+        console.error('Error updating activities:', error)
+    }
   }
 }
