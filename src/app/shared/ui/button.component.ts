@@ -8,12 +8,12 @@ import { RouterModule } from '@angular/router';
   template: `
     <button
       [routerLink]="route()"
-      class="text-4xl py-4 bg-blue-200 w-full mx-auto rounded-lg"
+      class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded transform hover:-translate-y-1 transition-all duration-200 text-4xl w-full"
     >
       {{ text() }}
     </button>
   `,
-  styles: ``, 
+  styles: ``,
 })
 export class ButtonComponent {
   route = input<string>();

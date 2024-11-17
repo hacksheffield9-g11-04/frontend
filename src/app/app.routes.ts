@@ -4,6 +4,8 @@ import { HomePage } from './pages/home.component';
 import { KnowledgePage } from './pages/knowledge.component';
 import { MindPage } from './pages/mind.component';
 import { ActivityListPage } from './pages/activity-list.component';
+import { GridPage } from './pages/grid.component';
+import { CardsPage } from './pages/cards.component';
 
 export const routes: Routes = [
   {
@@ -11,19 +13,31 @@ export const routes: Routes = [
     component: FitnessPage,
   },
   {
-    path: '',
-    component: HomePage,
-  },
-  {
     path: 'knowledge',
-    component: KnowledgePage
+    component: KnowledgePage,
   },
   {
     path: 'mind',
-    component: MindPage
+    component: MindPage,
+  },
+  {
+    path: 'grid',
+    component: GridPage,
   },
   {
     path: 'activities-today',
-    component: ActivityListPage
-  }
+    component: ActivityListPage,
+  },
+  {
+    path: 'cards',
+    component: CardsPage,
+  },
+  {
+    path: 'list',
+    component: ActivityListPage,
+  },
+
+  { path: '', component: HomePage },
+
+  { path: '**', component: HomePage },
 ];

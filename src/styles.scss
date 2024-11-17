@@ -3,3 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: whitesmoke;
+  background-image: url("../public/assets/meshbg.png");
+  background-position: right;
+  min-width: 100vw;
+  min-height: 100vh;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}

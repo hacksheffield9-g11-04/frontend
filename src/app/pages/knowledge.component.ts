@@ -1,6 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { HeadingComponent } from '../shared/ui/heading.component';
 import { ButtonComponent } from '../shared/ui/button.component';
+import { ActivityService } from '../shared/services/activity.service';
+import {
+  ActivityRequest,
+  ActivityResponse,
+} from '../shared/interfaces/activity.interface';
+import { DataModelManagerService } from '../dataModelManagerService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-knowledge',
@@ -10,17 +17,74 @@ import { ButtonComponent } from '../shared/ui/button.component';
     <app-heading [title]="title"></app-heading>
     <div class="grid grid-cols-1 gap-4">
       @for (section of subSections; track $index) {
-      <app-button [text]="section.name" />
+      <app-button
+        [text]="section.name"
+        (click)="generateActivities(section.name)"
+      />
       }
     </div>
+    @if (isLoading()) {
+    <div class="mt-6 text-center">
+      <p>Generating your knowledge plan...</p>
+    </div>
+    } @if (error()) {
+    <div class="mt-6 text-red-500">
+      {{ error() }}
+    </div>
+    } @if (activities()) {
+    <div class="mt-6">
+      <h3 class="text-xl font-bold mb-4">Your Knowledge Plan:</h3>
+      <ul class="space-y-2">
+        @for (activity of activities()!.activities; track $index) {
+        <li class="p-2 bg-gray-50 rounded">{{ activity }}</li>
+        }
+      </ul>
+    </div>
+    }
   </div> `,
-  styles: ``
+  styles: ``,
 })
 export class KnowledgePage {
+  private activityService = inject(ActivityService);
+  private dataModelMgrSvc = inject(DataModelManagerService);
+
+  router = inject(Router);
   title = 'Great! In which area would you like to expand your knowledge in?';
-  subSections = [
-    { name: 'Coding' },
-    { name: 'History' },
-    { name: 'Science' },
-  ];
+  subSections = [{ name: 'Coding' }, { name: 'History' }, { name: 'Science' }];
+
+  activities = signal<ActivityResponse | null>(null);
+  isLoading = signal<boolean>(false);
+  error = signal<string | null>(null);
+
+  generateActivities(subsection: string) {
+    this.isLoading.set(true);
+    this.error.set(null);
+
+    const request: ActivityRequest = {
+      category: 'fitness',
+      subcategory: subsection,
+      difficulty: 'easy',
+      durationPerDay: 10,
+    };
+    console.log('Generating activities for:', request);
+
+    this.activityService.generateActivities(request).subscribe({
+      next: (response) => {
+        this.activities.set(response);
+        this.dataModelMgrSvc.registerDataModel(
+          'activities',
+          response.activities,
+          true
+        );
+        this.isLoading.set(false);
+        this.router.navigate(['/cards']);
+        console.log('Activities generated:', response);
+      },
+      error: (error) => {
+        this.error.set('Failed to generate activities. Please try again.');
+        this.isLoading.set(false);
+        console.error('Error generating activities:', error);
+      },
+    });
+  }
 }
