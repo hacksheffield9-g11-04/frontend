@@ -14,12 +14,13 @@ import { HeadingComponent } from '../shared/ui/heading.component';
         <app-heading title="Select your favorite task 🔮"></app-heading>
       </div>
 
-      <div class="relative w-80 h-96">
+      <div class="relative w-80 h-80">
         @if (activities().length === 0) {
         <div
-          class="absolute w-full h-full flex items-center justify-center bg-white rounded-lg shadow-xl"
+          class="absolute w-full h-full flex items-center flex-col justify-center text-bold border-4 border-dashed border-gray-400 rounded-lg text-3xl text-gray-300 animate-appear"
         >
-          <p class="text-gray-500">No more activities</p>
+          <p class="text-gray-400">No more</p>
+          <p class="text-gray-400">activities :c</p>
         </div>
         } @for (activity of activities(); track activity) {
         <div
@@ -114,9 +115,9 @@ export class CardsPage {
       ) as HTMLElement;
       if (topCard) {
         // Random values for exit animation
-        const exitX = -(Math.random() * 1000 + 500); // Fly left
-        const exitY = Math.random() * 500 - 250; // Random vertical direction
-        const exitRotation = -(Math.random() * 90 + 45); // Rotate left
+        const exitX = Math.random() * 1000 - 500; // -500 to +500
+        const exitY = Math.random() * 1000 - 500; // -500 to +500
+        const exitRotation = Math.random() * 180 - 90; // -90 to +90 degrees[1]
 
         // Set custom properties for the animation
         topCard.style.setProperty('--exit-x', `${exitX}px`);
