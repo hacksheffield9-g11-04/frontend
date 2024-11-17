@@ -36,4 +36,8 @@ export const routes: Routes = [
     path: 'cards',
     component: CardsPage,
   },
+  {
+    path: 'list',
+    component: ActivityListPage,
+  },
 ];

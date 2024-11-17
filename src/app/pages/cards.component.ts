@@ -1,15 +1,15 @@
 import { Component, inject, signal } from '@angular/core';
 import { DataModelManagerService } from '../dataModelManagerService';
 import { HeadingComponent } from '../shared/ui/heading.component';
+import { ButtonComponent } from '../shared/ui/button.component';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cards',
   standalone: true,
-  imports: [HeadingComponent],
+  imports: [HeadingComponent, ButtonComponent, RouterModule],
   template: `
-    <div
-      class="flex flex-col justify-center items-center min-h-[70vh] bg-gray-100 p-4"
-    >
+    <div class="flex flex-col justify-center items-center min-h-[70vh] p-4">
       <div class="pb-4">
         <app-heading title="Select your favorite task 🔮"></app-heading>
       </div>
@@ -53,6 +53,11 @@ import { HeadingComponent } from '../shared/ui/heading.component';
         ✓
       </button>
     </div>
+    @if (activities().length === 0) {
+    <div class="py-8 animate-appear px-8">
+      <app-button (click)="showList()" text="Show my activities"></app-button>
+    </div>
+    }
   `,
   styles: [
     `
@@ -69,6 +74,10 @@ export class CardsPage {
   activities = signal<string[]>([]);
   currentActivity = signal<string | null>(null);
   private dataModelMgrSvc = inject(DataModelManagerService);
+  router = inject(Router);
+  showList() {
+    this.router.navigate(['/list']);
+  }
 
   ngOnInit(): void {
     const activitiesData = this.dataModelMgrSvc.get('activities');
