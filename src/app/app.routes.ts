@@ -3,6 +3,7 @@ import { FitnessPage } from './pages/fitness.component';
 import { HomePage } from './pages/home.component';
 import { KnowledgePage } from './pages/knowledge.component';
 import { MindPage } from './pages/mind.component';
+import { GridPage } from './pages/grid.component';
 
 export const routes: Routes = [
   {
@@ -15,10 +16,14 @@ export const routes: Routes = [
   },
   {
     path: 'knowledge',
-    component: KnowledgePage
+    component: KnowledgePage,
   },
   {
     path: 'mind',
-    component: MindPage
-  }
+    component: MindPage,
+  },
+  {
+    path: 'grid',
+    component: GridPage,
+  },
 ];
