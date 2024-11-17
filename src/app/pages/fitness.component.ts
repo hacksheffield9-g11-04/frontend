@@ -16,7 +16,10 @@ import { Router } from '@angular/router';
     <app-heading [title]="title"></app-heading>
     <div class="grid grid-cols-1 gap-4">
       @for (section of subSections; track $index) {
-      <app-button [text]="section.name" (click)="generateActivities()" />
+      <app-button
+        [text]="section.name"
+        (click)="generateActivities(section.name)"
+      />
       }
     </div>
     @if (isLoading()) {
@@ -48,7 +51,7 @@ export class FitnessPage {
   title = 'Great! Now select what do you want to do in Fitness?';
   subSections = [
     { name: 'Running' },
-    { name: 'Weighlifting' },
+    { name: 'Weightlifting' },
     { name: 'Crossfit' },
   ];
 
@@ -56,15 +59,17 @@ export class FitnessPage {
   isLoading = signal<boolean>(false);
   error = signal<string | null>(null);
 
-  generateActivities() {
+  generateActivities(subsection: string) {
     this.isLoading.set(true);
     this.error.set(null);
 
     const request: ActivityRequest = {
       category: 'fitness',
-      difficulty: 'medium',
-      durationPerDay: 30,
+      subcategory: subsection,
+      difficulty: 'easy',
+      durationPerDay: 10,
     };
+    console.log('Generating activities for:', request);
 
     this.activityService.generateActivities(request).subscribe({
       next: (response) => {

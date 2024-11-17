@@ -22,7 +22,8 @@ export class ActivityService {
     const params = new HttpParams()
       .set('difficulty', request.difficulty)
       .set('category', request.category)
-      .set('durationPerDay', request.durationPerDay);
+      .set('durationPerDay', request.durationPerDay)
+      .set('subcategory', request.subcategory);
 
     return this.http.get<ActivityResponse>(`${this.baseUrl}/generate`, {
       params,

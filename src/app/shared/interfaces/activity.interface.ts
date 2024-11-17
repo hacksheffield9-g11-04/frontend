@@ -1,5 +1,6 @@
 export interface ActivityRequest {
   category: string;
+  subcategory: string;
   difficulty: 'easy' | 'medium' | 'hard'; // string literal type
   durationPerDay: number;
 }
