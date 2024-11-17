@@ -42,7 +42,7 @@ import { Router } from '@angular/router';
     </div>
     }
   </div> `,
-  styles: ``
+  styles: ``,
 })
 export class KnowledgePage {
   private activityService = inject(ActivityService);
@@ -50,11 +50,7 @@ export class KnowledgePage {
 
   router = inject(Router);
   title = 'Great! In which area would you like to expand your knowledge in?';
-  subSections = [
-    { name: 'Coding' },
-    { name: 'History' },
-    { name: 'Science' },
-  ];
+  subSections = [{ name: 'Coding' }, { name: 'History' }, { name: 'Science' }];
 
   activities = signal<ActivityResponse | null>(null);
   isLoading = signal<boolean>(false);

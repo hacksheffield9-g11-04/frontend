@@ -23,6 +23,6 @@ export class HomePage {
   sections = [
     { name: 'Fitness', route: 'fitness' },
     { name: 'Knowledge', route: 'knowledge' },
-    { name: 'Mind', route: 'mind' },                
+    { name: 'Mind', route: 'mind' },
   ];
 }

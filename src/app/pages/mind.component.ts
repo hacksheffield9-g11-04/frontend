@@ -41,9 +41,8 @@ import { Router } from '@angular/router';
     </div>
     }
   </div> `,
-  styles: ``
+  styles: ``,
 })
-
 export class MindPage {
   private activityService = inject(ActivityService);
   private dataModelMgrSvc = inject(DataModelManagerService);
